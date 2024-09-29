@@ -1,3 +1,5 @@
+import './BList.css'
+
 const BList = () => {
   return (
     <div className="app-block book-list">

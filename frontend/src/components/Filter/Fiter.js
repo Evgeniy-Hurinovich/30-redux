@@ -1,3 +1,5 @@
+import './Fiter.css'
+
 const Fiter = () => {
   return (
     <div className="app-block filter">
