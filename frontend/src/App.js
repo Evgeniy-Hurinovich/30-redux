@@ -14,7 +14,7 @@ function App() {
           <BForm />
         </div>
         <div className="app-right-column">
-          {/* <Filter /> */}
+          <Filter />
           <BList />
         </div>
       </main>
