@@ -1,15 +1,24 @@
 import { useState } from 'react'
 
+import { useDispatch } from 'react-redux'
+
 import './BForm.css'
+import { addTask } from '../../redux/tasks/actionCreator'
 
 const BForm = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   // const [formData, setFormData]=useState({})
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault()
     if (title && author) {
-      // dispatch action
+      const task = {
+        title: title,
+        author: author,
+      }
+      dispatch(addTask(task))
+
       setTitle('')
       setAuthor('')
     }

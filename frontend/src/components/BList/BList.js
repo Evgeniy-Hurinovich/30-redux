@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import './BList.css'
 
 const BList = () => {
