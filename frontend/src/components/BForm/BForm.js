@@ -17,6 +17,7 @@ const BForm = () => {
     const rndTaskWithID = {
       ...rndTask,
       id: uuidv4(),
+      isFavorite: false,
     }
     dispatch(addTask(rndTaskWithID))
   }
@@ -27,6 +28,7 @@ const BForm = () => {
         title: title,
         author: author,
         id: uuidv4(),
+        isFavorite: false,
       }
       dispatch(addTask(task))
 

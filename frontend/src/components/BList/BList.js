@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { BsBookmarkStarFill, BsBookmarkStar } from 'react-icons/bs'
 import { deleteTask } from '../../redux/tasks/actionCreator'
 import './BList.css'
 
@@ -22,6 +23,11 @@ const BList = () => {
               </div>
 
               <div className="book-actions">
+                {task.isFavorite ? (
+                  <BsBookmarkStarFill className="star-icon" />
+                ) : (
+                  <BsBookmarkStar className="star-icon" />
+                )}
                 <button onClick={() => handlDeleteTask(task.id)}>Delete</button>
               </div>
             </li>

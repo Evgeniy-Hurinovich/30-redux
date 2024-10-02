@@ -9,6 +9,12 @@ const taskReduser = (state = initialState, action) => {
 
     case a.DELETE_TASK:
       return state.filter((task) => task.id !== action.payload)
+    case a.TOGGLE_FAVORITE:
+      return state.map((task) =>
+        task.id === action.payload
+          ? { ...task, isFavorite: !task.isFavorite }
+          : task
+      )
 
     default:
       return state
