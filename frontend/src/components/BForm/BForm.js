@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { addTask } from '../../redux/tasks/actionCreator'
+import taskData from '../../data/task.json'
 import './BForm.css'
 
 const BForm = () => {
@@ -9,6 +10,16 @@ const BForm = () => {
   const [author, setAuthor] = useState('')
   // const [formData, setFormData]=useState({})
   const dispatch = useDispatch()
+
+  const handlAddRNDTask = () => {
+    const rndIndex = Math.floor(Math.random() * taskData.length)
+    const rndTask = taskData[rndIndex]
+    const rndTaskWithID = {
+      ...rndTask,
+      id: uuidv4(),
+    }
+    dispatch(addTask(rndTaskWithID))
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
     if (title && author) {
@@ -46,6 +57,9 @@ const BForm = () => {
           />
         </div>
         <button type="submit">Add task</button>
+        <button type="button" onClick={handlAddRNDTask}>
+          Add RND task
+        </button>
       </form>
     </div>
   )
