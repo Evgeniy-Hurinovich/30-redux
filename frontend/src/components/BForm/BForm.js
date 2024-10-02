@@ -1,9 +1,8 @@
 import { useState } from 'react'
-
 import { useDispatch } from 'react-redux'
-
-import './BForm.css'
+import { v4 as uuidv4 } from 'uuid'
 import { addTask } from '../../redux/tasks/actionCreator'
+import './BForm.css'
 
 const BForm = () => {
   const [title, setTitle] = useState('')
@@ -16,6 +15,7 @@ const BForm = () => {
       const task = {
         title: title,
         author: author,
+        id: uuidv4(),
       }
       dispatch(addTask(task))
 

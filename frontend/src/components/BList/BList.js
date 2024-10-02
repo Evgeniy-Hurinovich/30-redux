@@ -11,7 +11,7 @@ const BList = () => {
       ) : (
         <ul>
           {task.map((task, i) => (
-            <li key={i}>
+            <li key={task.id}>
               <div className="book-info">
                 {++i}. {task.title} by <strong>{task.author}</strong>
               </div>
