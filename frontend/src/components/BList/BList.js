@@ -1,8 +1,13 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteTask } from '../../redux/tasks/actionCreator'
 import './BList.css'
 
 const BList = () => {
   const task = useSelector((state) => state.task)
+  const dispatch = useDispatch()
+  const handlDeleteTask = (id) => {
+    dispatch(deleteTask(id))
+  }
   return (
     <div className="app-block book-list">
       <h2>Task list</h2>
@@ -14,6 +19,10 @@ const BList = () => {
             <li key={task.id}>
               <div className="book-info">
                 {++i}. {task.title} by <strong>{task.author}</strong>
+              </div>
+
+              <div className="book-actions">
+                <button onClick={() => handlDeleteTask(task.id)}>Delete</button>
               </div>
             </li>
           ))}

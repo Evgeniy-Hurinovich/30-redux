@@ -7,6 +7,9 @@ const taskReduser = (state = initialState, action) => {
     case a.ADD_TASK:
       return [...state, action.payload]
 
+    case a.DELETE_TASK:
+      return state.filter((task) => task.id !== action.payload)
+
     default:
       return state
   }
