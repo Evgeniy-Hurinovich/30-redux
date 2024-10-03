@@ -14,15 +14,12 @@ const BForm = () => {
   const handlAddRNDTask = () => {
     const rndIndex = Math.floor(Math.random() * taskData.length)
     const rndTask = taskData[rndIndex]
-    const rndTaskWithID = createTaskWithID(rndTask)
-    dispatch(addTask(rndTaskWithID))
+    dispatch(addTask(createTaskWithID(rndTask)))
   }
   const handleSubmit = (e) => {
     e.preventDefault()
     if (title && author) {
-      const task = createTaskWithID({ title, author })
-
-      dispatch(addTask(task))
+      dispatch(addTask(createTaskWithID({ title, author })))
 
       setTitle('')
       setAuthor('')
