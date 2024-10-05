@@ -15,23 +15,21 @@ const BForm = () => {
   const handlAddRNDTask = () => {
     const rndIndex = Math.floor(Math.random() * taskData.length)
     const rndTask = taskData[rndIndex]
-    dispatch(addTask(createTaskWithID(rndTask)))
+    dispatch(addTask(createTaskWithID(rndTask, 'random')))
   }
   const handleSubmit = (e) => {
     e.preventDefault()
     if (title && author) {
-      dispatch(addTask(createTaskWithID({ title, author })))
-
+      dispatch(addTask(createTaskWithID({ title, author }, 'manual')))
       setTitle('')
       setAuthor('')
     }
   }
-
   const handlAddRNDTaskAPI = async () => {
     try {
       const res = await axios.get('http://localhost:4000/random-task')
       if (res.data && res.data.title && res.data.author) {
-        dispatch(addTask(createTaskWithID(res.data)))
+        dispatch(addTask(createTaskWithID(res.data, 'API')))
       }
     } catch (error) {
       console.log('error', error)

@@ -64,7 +64,8 @@ const BList = () => {
             <li key={task.id}>
               <div className="book-info">
                 {++i}. {highlightMatch(task.title, titleFilter)} by{' '}
-                <strong>{highlightMatch(task.author, authorFilter)}</strong>
+                <strong>{highlightMatch(task.author, authorFilter)}</strong> (
+                {task.sourse})
               </div>
               <div className="book-actions">
                 <span onClick={() => handleToggleFavorite(task.id)}>
