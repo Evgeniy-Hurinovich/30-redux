@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import { addTask } from '../../redux/slices/taskSlice'
+import { addTask, thunkFun } from '../../redux/slices/taskSlice'
 import createTaskWithID from '../../utils/createTaskWithID'
 import taskData from '../../data/task.json'
 import './BForm.css'
@@ -9,9 +8,7 @@ import './BForm.css'
 const BForm = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
-  // const [formData, setFormData]=useState({})
   const dispatch = useDispatch()
-
   const handlAddRNDTask = () => {
     const rndIndex = Math.floor(Math.random() * taskData.length)
     const rndTask = taskData[rndIndex]
@@ -25,15 +22,9 @@ const BForm = () => {
       setAuthor('')
     }
   }
-  const handlAddRNDTaskAPI = async () => {
-    try {
-      const res = await axios.get('http://localhost:4000/random-task')
-      if (res.data && res.data.title && res.data.author) {
-        dispatch(addTask(createTaskWithID(res.data, 'API')))
-      }
-    } catch (error) {
-      console.log('error', error)
-    }
+
+  const handlAddRNDTaskAPI = () => {
+    dispatch(thunkFun)
   }
 
   return (

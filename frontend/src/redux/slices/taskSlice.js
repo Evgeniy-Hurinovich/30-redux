@@ -1,4 +1,6 @@
+import axios from 'axios'
 import { createSlice } from '@reduxjs/toolkit'
+import createTaskWithID from '../../utils/createTaskWithID'
 
 const initialState = []
 const taskSlice = createSlice({
@@ -22,5 +24,16 @@ const taskSlice = createSlice({
 })
 
 export const { addTask, deleteTask, toggleFavorite } = taskSlice.actions
+export const thunkFun = async (dispatch, getState) => {
+  try {
+    const res = await axios.get('http://localhost:4000/random-task')
+    if (res.data && res.data.title && res.data.author) {
+      dispatch(addTask(createTaskWithID(res.data, 'API')))
+    }
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
 export const selectTask = (state) => state.task
 export default taskSlice.reducer
