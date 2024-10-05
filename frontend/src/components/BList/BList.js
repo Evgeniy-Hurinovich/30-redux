@@ -34,6 +34,21 @@ const BList = () => {
     return matchesTitle && matchesAuthor && matchesFavorite
   })
 
+  const highlightMatch = (text, filter) => {
+    if (!filter) return text
+    const regex = new RegExp(`(${filter})`, `gi`)
+    return text.split(regex).map((substring, i) => {
+      if (substring.toLowerCase() === filter.toLowerCase()) {
+        return (
+          <span key={i} className="highlight">
+            {substring}
+          </span>
+        )
+      }
+      return substring
+    })
+  }
+
   return (
     <div className="app-block book-list">
       <h2>Task list</h2>
@@ -44,9 +59,9 @@ const BList = () => {
           {filteredTask.map((task, i) => (
             <li key={task.id}>
               <div className="book-info">
-                {++i}. {task.title} by <strong>{task.author}</strong>
+                {++i}. {highlightMatch(task.title, titleFilter)} by{' '}
+                <strong>{highlightMatch(task.author, authorFilter)}</strong>
               </div>
-
               <div className="book-actions">
                 <span onClick={() => handleToggleFavorite(task.id)}>
                   {task.isFavorite ? (
