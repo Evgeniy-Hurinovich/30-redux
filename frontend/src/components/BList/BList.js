@@ -5,13 +5,14 @@ import './BList.css'
 import {
   selectTitleFilter,
   selectAuthorFilter,
+  selectOnlyFavoriteFilter,
 } from '../../redux/slices/filterSlice'
 
 const BList = () => {
   const task = useSelector((state) => state.task)
   const titleFilter = useSelector(selectTitleFilter)
   const authorFilter = useSelector(selectAuthorFilter)
-
+  const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter)
   const dispatch = useDispatch()
   const handlDeleteTask = (id) => {
     dispatch(deleteTask(id))
@@ -28,8 +29,9 @@ const BList = () => {
     const matchesAuthor = task.author
       .toLowerCase()
       .includes(authorFilter.toLowerCase())
+    const matchesFavorite = onlyFavoriteFilter ? task.isFavorite : true
 
-    return matchesTitle && matchesAuthor
+    return matchesTitle && matchesAuthor && matchesFavorite
   })
 
   return (
