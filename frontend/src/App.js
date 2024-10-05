@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>DDS-group</h1>
+        <h1>Task-manager</h1>
       </header>
       <main className="app-main">
         <div className="app-left-column">
