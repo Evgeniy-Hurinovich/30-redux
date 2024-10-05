@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addTask } from '../../redux/tasks/actionCreator'
+import { addTask } from '../../redux/slices/taskSlice'
 import createTaskWithID from '../../utils/createTaskWithID'
 import taskData from '../../data/task.json'
 import './BForm.css'

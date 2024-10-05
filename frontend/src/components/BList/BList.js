@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { BsBookmarkStarFill, BsBookmarkStar } from 'react-icons/bs'
-import { deleteTask, toggleFavorite } from '../../redux/tasks/actionCreator'
+import {
+  deleteTask,
+  toggleFavorite,
+  selectTask,
+} from '../../redux/slices/taskSlice'
 import './BList.css'
 import {
   selectTitleFilter,
@@ -9,7 +13,7 @@ import {
 } from '../../redux/slices/filterSlice'
 
 const BList = () => {
-  const task = useSelector((state) => state.task)
+  const task = useSelector(selectTask)
   const titleFilter = useSelector(selectTitleFilter)
   const authorFilter = useSelector(selectAuthorFilter)
   const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter)
