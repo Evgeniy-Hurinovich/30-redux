@@ -1,8 +1,13 @@
 import axios from 'axios'
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import createTaskWithID from '../../utils/createTaskWithID'
 
 const initialState = []
+
+export const fetchTask = createAsyncThunk('task/fetchTask', async () => {
+  const res = await axios.get('http://localhost:4000/random-task')
+  return res.data
+})
 const taskSlice = createSlice({
   name: 'task',
   initialState,
@@ -21,19 +26,16 @@ const taskSlice = createSlice({
       })
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchTask.fulfilled, (state, action) => {
+      if (action.payload.title && action.payload.author) {
+        state.push(createTaskWithID(action.payload, 'API'))
+      }
+    })
+  },
 })
 
 export const { addTask, deleteTask, toggleFavorite } = taskSlice.actions
-export const thunkFun = async (dispatch, getState) => {
-  try {
-    const res = await axios.get('http://localhost:4000/random-task')
-    if (res.data && res.data.title && res.data.author) {
-      dispatch(addTask(createTaskWithID(res.data, 'API')))
-    }
-  } catch (error) {
-    console.log('error', error)
-  }
-}
 
 export const selectTask = (state) => state.task
 export default taskSlice.reducer

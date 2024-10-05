@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addTask, thunkFun } from '../../redux/slices/taskSlice'
+import { addTask, fetchTask } from '../../redux/slices/taskSlice'
 import createTaskWithID from '../../utils/createTaskWithID'
 import taskData from '../../data/task.json'
 import './BForm.css'
@@ -24,7 +24,7 @@ const BForm = () => {
   }
 
   const handlAddRNDTaskAPI = () => {
-    dispatch(thunkFun)
+    dispatch(fetchTask())
   }
 
   return (
