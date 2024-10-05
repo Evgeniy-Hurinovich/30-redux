@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
 import { addTask } from '../../redux/slices/taskSlice'
 import createTaskWithID from '../../utils/createTaskWithID'
 import taskData from '../../data/task.json'
@@ -25,6 +26,18 @@ const BForm = () => {
       setAuthor('')
     }
   }
+
+  const handlAddRNDTaskAPI = async () => {
+    try {
+      const res = await axios.get('http://localhost:4000/random-task')
+      if (res.data && res.data.title && res.data.author) {
+        dispatch(addTask(createTaskWithID(res.data)))
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
   return (
     <div className="app-block book-form">
       <h2>Add a new task</h2>
@@ -50,6 +63,9 @@ const BForm = () => {
         <button type="submit">Add task</button>
         <button type="button" onClick={handlAddRNDTask}>
           Add RND task
+        </button>
+        <button type="button" onClick={handlAddRNDTaskAPI}>
+          Add rnd API
         </button>
       </form>
     </div>
