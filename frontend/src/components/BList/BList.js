@@ -2,11 +2,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BsBookmarkStarFill, BsBookmarkStar } from 'react-icons/bs'
 import { deleteTask, toggleFavorite } from '../../redux/tasks/actionCreator'
 import './BList.css'
-import { selectTitleFilter } from '../../redux/slices/filterSlice'
+import {
+  selectTitleFilter,
+  selectAuthorFilter,
+} from '../../redux/slices/filterSlice'
 
 const BList = () => {
   const task = useSelector((state) => state.task)
   const titleFilter = useSelector(selectTitleFilter)
+  const authorFilter = useSelector(selectAuthorFilter)
 
   const dispatch = useDispatch()
   const handlDeleteTask = (id) => {
@@ -21,7 +25,11 @@ const BList = () => {
     const matchesTitle = task.title
       .toLowerCase()
       .includes(titleFilter.toLowerCase())
-    return matchesTitle
+    const matchesAuthor = task.author
+      .toLowerCase()
+      .includes(authorFilter.toLowerCase())
+
+    return matchesTitle && matchesAuthor
   })
 
   return (
