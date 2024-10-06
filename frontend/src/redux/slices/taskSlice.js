@@ -58,15 +58,28 @@ const taskSlice = createSlice({
   // },
 
   extraReducers: (builder) => {
+    // _______\/___________для удаления как экспериментальное
+    builder.addCase(fetchTask.pending, (state) => {
+      state.isLoadingAPI = true
+    })
+    // _________/\___________________________________
     builder.addCase(fetchTask.fulfilled, (state, action) => {
       if (action.payload.title && action.payload.author) {
         state.tasks.push(createTaskWithID(action.payload, 'API'))
       }
     })
+
+    // ________________\/_____для удаления как экспериментальное
+    builder.addCase(fetchTask.rejected, (state) => {
+      state.isLoadingAPI = false
+    })
+    // _____________/\_______________________________
   },
 })
 
 export const { addTask, deleteTask, toggleFavorite } = taskSlice.actions
 
 export const selectTask = (state) => state.task.tasks
+export const selectIsloadingAPI = (state) => state.tasks.isLoadingAPI
+//task \ tasks
 export default taskSlice.reducer
