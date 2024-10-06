@@ -31,7 +31,7 @@ const BForm = () => {
   const handlAddRNDTaskAPI = async () => {
     try {
       setIsLoading(true)
-      await dispatch(fetchTask('http://localhost:4000/random-task-delayed'))
+      await dispatch(fetchTask('http://localhost:4000/random-task'))
     } finally {
       setIsLoading(false)
     }

@@ -3,7 +3,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import createTaskWithID from '../../utils/createTaskWithID'
 import { setError } from './errorSlice'
 
-const initialState = []
+const initialState = {
+  tasks: [],
+  isLoadingAPI: false,
+}
 
 export const fetchTask = createAsyncThunk(
   'task/fetchTask',
@@ -22,13 +25,16 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state, action) => {
-      state.push(action.payload)
+      state.tasks.push(action.payload)
     },
     deleteTask: (state, action) => {
-      return state.filter((task) => task.id !== action.payload)
+      return {
+        ...state,
+        tasks: state.tasks.filter((task) => task.id !== action.payload),
+      }
     },
     toggleFavorite: (state, action) => {
-      state.forEach((task) => {
+      state.tasks.forEach((task) => {
         if (task.id === action.payload) {
           task.isFavorite = !task.isFavorite
         }
@@ -38,7 +44,7 @@ const taskSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchTask.fulfilled, (state, action) => {
       if (action.payload.title && action.payload.author) {
-        state.push(createTaskWithID(action.payload, 'API'))
+        state.tasks.push(createTaskWithID(action.payload, 'API'))
       }
     })
   },
@@ -46,5 +52,5 @@ const taskSlice = createSlice({
 
 export const { addTask, deleteTask, toggleFavorite } = taskSlice.actions
 
-export const selectTask = (state) => state.task
+export const selectTask = (state) => state.task.tasks
 export default taskSlice.reducer
