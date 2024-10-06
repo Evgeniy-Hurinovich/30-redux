@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addTask, fetchTask } from '../../redux/slices/taskSlice'
+import { setError } from '../../redux/slices/errorSlice'
 import createTaskWithID from '../../utils/createTaskWithID'
 import taskData from '../../data/task.json'
 import './BForm.css'
@@ -20,6 +21,8 @@ const BForm = () => {
       dispatch(addTask(createTaskWithID({ title, author }, 'manual')))
       setTitle('')
       setAuthor('')
+    } else {
+      dispatch(setError('You must fill title and autor!'))
     }
   }
 

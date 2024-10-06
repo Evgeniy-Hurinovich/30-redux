@@ -1,6 +1,7 @@
 import BList from './components/BList/BList'
 import BForm from './components/BForm/BForm'
 import Filter from './components/Filter/Fiter'
+import Error from './components/Error/Error'
 import './App.css'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <BList />
         </div>
       </main>
+      <Error />
     </div>
   )
 }
