@@ -27,7 +27,7 @@ const BForm = () => {
   }
 
   const handlAddRNDTaskAPI = () => {
-    dispatch(fetchTask())
+    dispatch(fetchTask('http://localhost:4000/random-task'))
   }
 
   return (
