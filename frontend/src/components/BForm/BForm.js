@@ -27,9 +27,9 @@ const BForm = () => {
   }
 
   const handlAddRNDTaskAPI = () => {
-    dispatch(fetchTask('http://localhost:4000/random-task'))
+    dispatch(fetchTask('http://localhost:4000/random-task-delayed'))
   }
-
+  //-delayed    задержка для ответа сервера
   return (
     <div className="app-block book-form">
       <h2>Add a new task</h2>

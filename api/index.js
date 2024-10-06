@@ -6,10 +6,19 @@ const app = express()
 
 app.use(cors())
 
-app.get('/random-task', (req, res) => {
+function getRandomTask() {
   const randomIndex = Math.floor(Math.random() * taskData.length)
   const randomTask = taskData[randomIndex]
-  res.json(randomTask)
+  return randomTask
+}
+app.get('/random-task', (req, res) => {
+  res.json(getRandomTask())
+})
+
+app.get('/random-task-delayed', (req, res) => {
+  setTimeout(() => {
+    res.json(getRandomTask())
+  }, 2000)
 })
 
 const port = process.env.PORT || 4000
