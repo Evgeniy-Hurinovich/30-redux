@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { FaSpinner } from 'react-icons/fa'
 import { addTask, fetchTask } from '../../redux/slices/taskSlice'
 import { setError } from '../../redux/slices/errorSlice'
 import createTaskWithID from '../../utils/createTaskWithID'
@@ -9,6 +10,7 @@ import './BForm.css'
 const BForm = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
   const handlAddRNDTask = () => {
     const rndIndex = Math.floor(Math.random() * taskData.length)
@@ -26,8 +28,13 @@ const BForm = () => {
     }
   }
 
-  const handlAddRNDTaskAPI = () => {
-    dispatch(fetchTask('http://localhost:4000/random-task-delayed'))
+  const handlAddRNDTaskAPI = async () => {
+    try {
+      setIsLoading(true)
+      await dispatch(fetchTask('http://localhost:4000/random-task-delayed'))
+    } finally {
+      setIsLoading(false)
+    }
   }
   //-delayed    задержка для ответа сервера
   return (
@@ -56,8 +63,15 @@ const BForm = () => {
         <button type="button" onClick={handlAddRNDTask}>
           Add RND task
         </button>
-        <button type="button" onClick={handlAddRNDTaskAPI}>
-          Add rnd API
+        <button type="button" onClick={handlAddRNDTaskAPI} disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <span>Loading Task...</span>
+              <FaSpinner className="spinner" />
+            </>
+          ) : (
+            'Add rnd API'
+          )}
         </button>
       </form>
     </div>
