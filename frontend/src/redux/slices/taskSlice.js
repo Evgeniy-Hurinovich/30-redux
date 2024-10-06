@@ -41,6 +41,22 @@ const taskSlice = createSlice({
       })
     },
   },
+
+  // extraReducers: {
+  //   [fetchTask.pending]: (state) => {
+  //     state.isLoadingAPI = true
+  //   },
+  //   [fetchTask.fulfilled]: (state, action) => {
+  //     state.isLoadingAPI = false
+  //     if (action.payload.title && action.payload.author) {
+  //       state.tasks.push(createTaskWithID(action.payload, 'API'))
+  //     }
+  //   },
+  //   [fetchTask.rejected]: (state) => {
+  //     state.isLoadingAPI = false
+  //   },
+  // },
+
   extraReducers: (builder) => {
     builder.addCase(fetchTask.fulfilled, (state, action) => {
       if (action.payload.title && action.payload.author) {
